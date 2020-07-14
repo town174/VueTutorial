@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="appSetValue">
+        <!-- text 普通文本-->
+        <p>{{ msg }}</p>
+        <spanv v-once>这个将不会改变: {{ msg }}</spanv>
+        <!-- Html -->
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+        <!-- Attribute html属性-->
+        <div v-bind:id="dynamicId"></div>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+        <!-- JsSupport 只能包含单个表达式-->
+        <div v-bind:id="'list-' + id"></div>
+    </div>
+    <span>---------------------------------------------------------</span>
+    <div id="appCommand">
+        <!-- 普通指令-->
+        <p v-if="seen">disabled</p>
+        <br>
+        <input v-model="url">
+        <!-- 接受参数写法，在指令名称之后以冒号表示, 参数一般是html attribute-->
+        <a v-bind:href="url">Link</a>
+        <br>
+        <!-- 动态参数写法-->
+        <a v-bind:[attr]="url">Link</a>
+        <br>
+        <!-- 修饰符, 指出一个指令应该以特殊方式绑定-->
+        <!--<form v-on:submit.prevent="onSubmit">...</form>-->
+        <!-- V-bind缩写-->
+        <a :href="url">Link</a>
+        <br>
+        <!-- V-on缩写-->
+        <button @click="click">button</button>
+    </div>
+    <script>
+        //模板语法，允许开发者生命式将dom绑定到底层vue实例的数据
+
+        //插值
+        var vm = new Vue({
+            el: '#appSetValue',
+            data: {
+                msg:'this is a message',
+                rawHtml:'<h3>this is html content</h3>',
+                dynamicId:'realId',
+                isButtonDisabled:false,
+                id:10
+            },     
+        });
+                        
+        //指令
+        //v-xxx, 当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM
+        var vm2 = new Vue({
+            el:"#appCommand",
+            data:{
+                seen:true,
+                url:'https://www.baidu.com/',
+                attr:'href'
+            },
+            methods: {
+                click(){
+                    console.log('button click')
+                    alert('button click')
+                }
+            },   
+        })
+    </script>
+</body>
+
+</html>

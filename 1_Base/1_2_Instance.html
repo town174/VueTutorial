@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ foo }}</p>
+        <!-- 这里的 `foo` 不会更新！ -->
+        <button v-on:click="foo = 'baz'">Change it</button>
+    </div>
+    <script>
+
+        //加入freeze，设置只读
+        //Object.freeze(obj)
+
+        //声明式渲染
+        //当一个 Vue 实例被创建时，它将 data 对象中的所有的 property 加入到 Vue 的响应式系统中。当这些 property 的值发生改变时，视图将会产生“响应”，即匹配更新为新的值
+        //生命周期钩子函数
+        //不要在选项 property 或回调上使用箭头函数
+        new Vue({
+            el: '#app',
+            data: {
+                foo:1
+            },        
+            created() {
+                console.log('created, a is:' + this.foo)
+            },
+            mounted() {
+                console.log('mounted, a is:' + this.foo)
+            },
+            destroyed() {
+                console.log('destroyed, a is:' + this.foo)
+            },
+        })                
+    </script>
+</body>
+
+</html>

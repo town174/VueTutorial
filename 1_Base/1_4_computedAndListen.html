@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    </div>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello',
+                firstName: 'Foo',
+                lastName: 'Bar',
+                fullName: 'Foo Bar'
+            },
+            //计算属性
+            //对于任何复杂逻辑，你都应当使用计算属性
+            //计算属性的 getter 函数是没有副作用 (side effect) 的，这使它更易于测试和理解
+            //如果不希望有缓存，请用方法来替代计算属性   
+            computed: {
+                // 计算属性的 getter
+                reversedMessage: function () {
+                // `this` 指向 vm 实例
+                return this.message.split('').reverse().join('') 
+                }
+            }
+            //侦听属性
+            //在数据变化时执行异步或开销较大的操作时使用
+        })                
+    </script>
+</body>
+
+</html>
