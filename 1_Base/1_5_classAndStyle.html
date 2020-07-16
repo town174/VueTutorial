@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>   
+    <div id='bind1'>
+        <span>{{isActive}}</span>
+        <h3  :class="isActive">isActive</h3>
+        <div :class="isActive"></div>
+        <div :class="{ active: isActive }"></div>
+        <div :class="{active:isActive, 'text-danger':hasError}"></div>
+    </div>
+    <div id="bind2">
+        <div v-bind:class="[activeClass, errorClass]"></div>
+    </div>
+    <div id="bind3">
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+        <div v-bind:style="[baseStyle, advStyle]"></div>
+    </div>
+    <script>        
+        //v-bind 用于 class 和 style 时，Vue.js 做了专门的增强
+        
+        new Vue({
+            el:'#bind1',
+            data:{
+                isActive: true,
+                hasError: false
+            }
+        })
+
+        
+        new Vue({
+            el:'#bind2',
+            data:{
+                activeClass: 'active',
+                errorClass:  'text-danger'
+            }
+        })
+
+        
+        new Vue({
+            el:'#bind3',
+            data:{
+                activeColor: 'red',
+                fontSize:  20,
+                baseStyle: {
+                    color: 'blue',
+                    fontSize: '13px'
+                },
+                advStyle: {
+                    margin: 0,
+                    height: '20px',
+                    backgroupColor: 'black'
+                },
+            }
+        })
+    </script>         
+</body>
+
+</html>
