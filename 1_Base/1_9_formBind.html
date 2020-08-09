@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="bind1">
+            <input v-model='message' placeholder="edit me">
+            <p>Message is: {{message}}</p>
+            <br>
+            <textarea  v-model='message' placeholder="edit me"></textarea>
+            <p>Message is: {{message}}</p>
+            <input type="checkbox" id='checkbox' v-model='checked'>
+            <label for="checkbox">{{ checked }}</label>
+            <br>
+            <input type="radio" id="one" value="one" v-model="picked">
+            <label for="one">one</label>
+            <input type="radio" id="two" value="two" v-model="picked">
+            <label for="two">two</label>
+            <span>Picked: {{ picked }}</span>
+            <br>
+            <select v-model="selected">
+                <option disabled value="">请选择</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <span>Selected: {{ selected }}</span>    
+            <br>        
+            <select v-model="selecteds" multiple>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <span>Selected: {{ selecteds }}</span>
+        </div>
+        <p>----------------------------------------</p>
+        <div id='bind2'>
+            <input v-model.lazy="message" >
+            <p>Message is: {{message}}</p>
+            <input v-model.number="age" type="number">
+            <p>Age is: {{age}}</p>
+            <input v-model.trim="msg" type="number">
+            <p>Msg is: {{msg}}</p>
+        </div>
+        <script>
+            //v-model
+            //text 和 textarea 元素使用 value 属性和 input 事件；
+            //checkbox 和 radio 使用 checked 属性和 change 事件；
+            //select 字段将 value 作为 prop 并将 change 作为事件。
+            app1 = new Vue({
+                el:"#bind1",
+                data:{
+                    message:"",
+                    checked:true,
+                    picked:'',
+                    selected:'',
+                    selecteds:[]
+                }
+            })
+            //修饰符
+            //.lazy    在“change”时而非“input”时更新
+            //.number  自动将用户的输入值转为数值类型
+            //.trim    自动过滤用户输入的首尾空白字符
+            app2 = new Vue({
+                el:"#bind2",
+                data:{
+                    message:"",
+                    age:null,
+                    msg:"",
+                    checked:true,
+                    picked:'',
+                    selected:'',
+                    selecteds:[]
+                }
+            })
+        </script>
+    </body>
+</html>

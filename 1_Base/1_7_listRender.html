@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="list1">
+            <ul>
+                <li v-for="(item,index) in items">
+                    {{index}}-{{item.message}}
+                </li>
+            </ul>
+        </div>
+        <div id="list2">
+            <ul>
+                <li v-for="(value,name) in object">
+                    {{name}}-{{value}}
+                </li>
+            </ul>
+        </div>
+        <div id="list3">
+            <ul>
+                <li v-for="n in even(numbers)">{{n}}</li>
+            </ul>
+        </div>
+        <script>
+            //v-for  使用数组
+            app1 = new Vue({
+                el:'#list1',
+                data() {
+                    return {
+                        parentMessage: 'Parent',
+                        items:[
+                            {message:"foo"},
+                            {message:"bar"}
+                        ]
+                    }
+                },
+            })
+            //v-for  使用对象
+            app2 = new Vue({
+                el:'#list2',
+                data:{
+                    object:{
+                        title:"how to list in vue",
+                        author:"town",
+                        publicAt:"2016-02-14"
+                    }
+                }
+            })
+            //v-for 使用维护状态  尽可能设置key attribute
+            //数组检测更新
+            //监听变异方法  （改变原始数组）
+            //控制台测试example1.items.push({ message: 'Baz' })
+            //监听非变异方法（返回新数组）
+            //控制台测试filter,concat()
+            //vue不能检测索引设置数组或修改数组长度
+            //vue可以通过vm.$set设置指定位置数据
+            app1.$set(app1.items,1,{message:"replace"})
+            //vue不能检测对象属性的添加或删除
+            //vue可以通过vm.$set添加响应式属性
+            app2.$set(app2.object,'age',27)
+            //显示过滤/排序后结果
+            //使用计算属性或嵌套中使用方法
+            app3 = new Vue({
+                el:'#list3',
+                data:{
+                    numbers:[1,2,3,4,5]                    
+                },
+                methods: {
+                    even:function(numbers){
+                        return numbers.filter(function(number){
+                            return number % 2 === 0
+                        })
+                    }
+                },
+            })
+            //template使用v-for
+            //v-for和v-if同时使用  部分渲染
+            //组件上使用v-for
+        </script>
+    </body>
+</html>

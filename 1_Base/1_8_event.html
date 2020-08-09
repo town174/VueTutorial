@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id='app1'>
+            <!-- 事件绑定js表达式 -->
+            <button @click="counter += 1">Add 1</button>
+            <p>The button above has been clicked {{ counter }} times.</p>
+            <!-- 事件绑定方法名 -->
+            <br>
+            <button @click="greet">Greet</button>
+            <!-- 事件绑定方法和入参 -->
+            <br>
+            <button @click="say('hi')">Say hi</button>
+            <button @click="say('what')">Say what</button>
+            <br>
+            <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+                Submit
+            </button>
+        </div>
+        <p>--------------------------------------</p>
+        <div id='app2'>
+            <!-- 点击事件将只会触发一次 -->
+            <button v-on:click.once="doThis">once</button>
+            <!-- 阻止单击事件继续传播 -->
+            <button v-on:click.stop="doThis">stop</button>
+
+            <!-- 提交事件不再重载页面 -->
+            <form v-on:submit.prevent="onSubmit"></form>
+
+            <!-- 修饰符可以串联 -->
+            <a v-on:click.stop.prevent="doThat"></a>
+
+            <!-- 只有修饰符 -->
+            <form v-on:submit.prevent></form>
+
+            <!-- 添加事件监听器时使用事件捕获模式 -->
+            <!-- 即内部元素触发的事件先在此处理，然后才交由内部元素进行处理 -->
+            <div v-on:click.capture="doThis">...</div>
+
+            <!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+            <!-- 即事件不是从内部元素触发的 -->
+            <div v-on:click.self="doThat">...</div>        
+        </div>
+        <div id='app3' style="background-color: coral;">
+            <input @keyup.enter='submit'>
+            <input @keyup.ctrl.enter="submit2">
+        </div>
+        <script>
+            app1 = new Vue({
+                el:'#app1',
+                data:{
+                    counter:0,
+                    name:'vue'
+                },
+                methods: {
+                  greet:function(event){
+                      alert('hello ' + this.name + " !")
+                      if(event)
+                      {
+                          alert(event.target.tagName)
+                      }
+                  },
+                  say:function(message){
+                      alert(message)
+                  },
+                  warn: function (message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) {
+                    event.preventDefault()
+                    }
+                    alert(message)
+                  }                    
+                }              
+            })
+            app1.greet()
+
+            //事件修饰符
+            app2 = new Vue({
+                el:'#app2',
+                data:{
+
+                }
+            })
+
+            //按键修饰符
+            //鼠标修饰符
+            app3 = new Vue({
+                el:'#app3',
+                data:{
+
+                },
+                methods:{
+                    submit:function(){
+                        alert('submit')
+                    },
+                    submit2:function(){
+                        alert('submit')
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

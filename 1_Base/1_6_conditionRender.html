@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="if">
+            <h1 v-if='awesome'>vue is awesome!</h1>
+            <h1 v-else='awesome'>oh no!</h1>
+        </div>
+        <div id="tmp">
+            <template v-if='ok'>
+                <h1>Title</h1>
+                <p>Paragraph 1</p>
+                <p>Paragraph 2</p>
+            </template>
+            <div v-if="type === 'A'">
+                A
+            </div>
+            <div v-else-if="type === 'B'">
+                B
+            </div>
+            <div v-else-if="type === 'C'">
+                C
+            </div>
+            <div v-else>
+                Not A/B/C
+            </div>
+        </div>
+        <div id="key">
+            <template v-if="loginType === 'username'">
+                <label>Username</label>
+                <input placeholder="Enter your username" key="username-input">
+              </template>
+              <template v-else>
+                <label>Email</label>
+                <input placeholder="Enter your email address" key="email-input">
+              </template>
+        </div>
+        <div id='show'>
+            <h1 v-show='ok'>hello</h1>
+        </div>
+        <script>
+            app1 = new Vue({
+                el:'#if',
+                data:{
+                    awesome:false
+                }
+            })
+            app2 = new Vue({
+                el:'#tmp',
+                data:{
+                    ok:true
+                }
+            })
+            //使用key表示该元素不会被复用
+            app3 = new Vue({
+                el:'#key',
+                data:{
+                    loginType:'username'
+                }
+            })   
+            // v-if    真正条件渲染，组件重新销魂重建
+            // v-show  基于css切换
+            // 不推荐同时使用v-if和v-for, v-for优先级更高      
+            app4 = new Vue({
+                el:'#show',
+                data:{
+                    ok:'true'
+                }
+            }) 
+        </script>
+    </body>
+</html>
